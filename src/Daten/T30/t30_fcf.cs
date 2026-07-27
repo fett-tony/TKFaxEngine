@@ -1,0 +1,137 @@
+﻿/*
+ * TKFaxEngineFX - managed C# port
+ *
+ * C# conversion of t30_fcf.h.
+ */
+
+namespace TKFaxEngine.Daten.T30;
+
+public static class T30Frame {
+    public const byte Dis = 0x80;
+    public const byte Csi = 0x40;
+    public const byte Nsf = 0x20;
+    public const byte Dtc = 0x81;
+    public const byte Cig = 0x41;
+    public const byte Nsc = 0x21;
+    public const byte Pwd = 0xC1;
+    public const byte Sep = 0xA1;
+    public const byte Psa = 0x61;
+    public const byte Cia = 0xE1;
+    public const byte Isp = 0x11;
+    public const byte Dcs = 0x82;
+    public const byte Tsi = 0x42;
+    public const byte Nss = 0x22;
+    public const byte Sub = 0xC2;
+    public const byte Sid = 0xA2;
+    public const byte Ctc = 0x12;
+    public const byte Tsa = 0x62;
+    public const byte Ira = 0xE2;
+    public const byte Cfr = 0x84;
+    public const byte Ftt = 0x44;
+    public const byte Ctr = 0xC4;
+    public const byte Csa = 0x24;
+    public const byte Eom = 0x8E;
+    public const byte Mps = 0x4E;
+    public const byte Eop = 0x2E;
+    public const byte PriEom = 0x9E;
+    public const byte PriMps = 0x5E;
+    public const byte PriEop = 0x3E;
+    public const byte Eos = 0x1E;
+    public const byte Pps = 0xBE;
+    public const byte Eor = 0xCE;
+    public const byte Rr = 0x6E;
+    public const byte Mcf = 0x8C;
+    public const byte Rtp = 0xCC;
+    public const byte Rtn = 0x4C;
+    public const byte Pip = 0xAC;
+    public const byte Pin = 0x2C;
+    public const byte Ppr = 0xBC;
+    public const byte Rnr = 0xEC;
+    public const byte Err = 0x1C;
+    public const byte Fdm = 0xFC;
+    public const byte Dcn = 0xFA;
+    public const byte Crp = 0x1A;
+    public const byte Fnv = 0xCA;
+    public const byte Tnr = 0xEA;
+    public const byte Tr = 0x6A;
+    public const byte Tk = 0x4B;
+    public const byte Rk = 0x4A;
+    public const byte Pss = 0x1F;
+    public const byte Des = 0xA0;
+    public const byte Dec = 0x93;
+    public const byte Der = 0x53;
+    public const byte Dtr = 0x11;
+    public const byte Dnk = 0x9A;
+    public const byte Pid = 0x6C;
+    public const byte Spi = 0x10;
+    public const byte Spt = 0x80;
+    public const byte Null = 0x00;
+    public const byte Fcd = 0x06;
+    public const byte Ccd = 0x46;
+    public const byte Rcp = 0x86;
+
+
+    // Original TKFaxEngineFX identifiers.
+    public const byte T30_DIS = 0x80;
+    public const byte T30_CSI = 0x40;
+    public const byte T30_NSF = 0x20;
+    public const byte T30_DTC = 0x81;
+    public const byte T30_CIG = 0x41;
+    public const byte T30_NSC = 0x21;
+    public const byte T30_PWD = 0xC1;
+    public const byte T30_SEP = 0xA1;
+    public const byte T30_PSA = 0x61;
+    public const byte T30_CIA = 0xE1;
+    public const byte T30_ISP = 0x11;
+    public const byte T30_DCS = 0x82;
+    public const byte T30_TSI = 0x42;
+    public const byte T30_NSS = 0x22;
+    public const byte T30_SUB = 0xC2;
+    public const byte T30_SID = 0xA2;
+    public const byte T30_CTC = 0x12;
+    public const byte T30_TSA = 0x62;
+    public const byte T30_IRA = 0xE2;
+    public const byte T30_CFR = 0x84;
+    public const byte T30_FTT = 0x44;
+    public const byte T30_CTR = 0xC4;
+    public const byte T30_CSA = 0x24;
+    public const byte T30_EOM = 0x8E;
+    public const byte T30_MPS = 0x4E;
+    public const byte T30_EOP = 0x2E;
+    public const byte T30_PRI_EOM = 0x9E;
+    public const byte T30_PRI_MPS = 0x5E;
+    public const byte T30_PRI_EOP = 0x3E;
+    public const byte T30_EOS = 0x1E;
+    public const byte T30_PPS = 0xBE;
+    public const byte T30_EOR = 0xCE;
+    public const byte T30_RR = 0x6E;
+    public const byte T30_MCF = 0x8C;
+    public const byte T30_RTP = 0xCC;
+    public const byte T30_RTN = 0x4C;
+    public const byte T30_PIP = 0xAC;
+    public const byte T30_PIN = 0x2C;
+    public const byte T30_PPR = 0xBC;
+    public const byte T30_RNR = 0xEC;
+    public const byte T30_ERR = 0x1C;
+    public const byte T30_FDM = 0xFC;
+    public const byte T30_DCN = 0xFA;
+    public const byte T30_CRP = 0x1A;
+    public const byte T30_FNV = 0xCA;
+    public const byte T30_TNR = 0xEA;
+    public const byte T30_TR = 0x6A;
+    public const byte T30_TK = 0x4B;
+    public const byte T30_RK = 0x4A;
+    public const byte T30_PSS = 0x1F;
+    public const byte T30_DES = 0xA0;
+    public const byte T30_DEC = 0x93;
+    public const byte T30_DER = 0x53;
+    public const byte T30_DTR = 0x11;
+    public const byte T30_DNK = 0x9A;
+    public const byte T30_PID = 0x6C;
+    public const byte T30_SPI = 0x10;
+    public const byte T30_SPT = 0x80;
+    public const byte T30_NULL = 0x00;
+    public const byte T4_FCD = 0x06;
+    public const byte T4_CCD = 0x46;
+    public const byte T4_RCP = 0x86;
+}
