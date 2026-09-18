@@ -12,3 +12,5 @@ this libs are very important to complile this project
 * 10.0.17763.0
 
 i have changed the name only for development it is a 100% spanDSP port.
+
+is created with openAI
