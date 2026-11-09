@@ -106,9 +106,22 @@ Network framing is deliberately outside the engine. The library does not provide
 | `SRC/Modem/V8` | V.8 modem negotiation |
 | `SRC/Modem/V80` | V.80 support |
 | `SRC/Modem/V150` | V.150.1 and SSE payload/state handling |
-| `Wichtig` | Development notes, comparisons, native integration notes, and table-generator sources; excluded from compilation |
+| `SRC/TKFaxEngine.xml` | Generated XML API documentation for the public and internal C# API |
+| `tools/Generators` | Original C utilities used to generate lookup tables, constellations, filters, and dictionaries |
 
 Source presence should not be read as a guarantee that every listed standard is complete or validated. The status markers in the source and the current test results take precedence.
+
+## Source generators
+
+The C programs under `tools/Generators` are retained so that generated tables and dictionaries can be traced back to their generation logic. They are development tools only:
+
+- they are not compiled or executed by `TKFaxEngine.csproj`;
+- they are not required to build or run `TKFaxEngine.dll`;
+- the generated tables needed by the current library are already present as C# source under `SRC`;
+- several generators require headers or auxiliary tools from the original C development environment and are therefore not standalone in this repository;
+- generated C output must be reviewed and converted carefully before replacing an existing C# table.
+
+See [`tools/README.md`](tools/README.md) for the generator inventory, dependencies, and corresponding C# source areas.
 
 ## Development status
 
@@ -120,7 +133,7 @@ The current codebase is a compilable development state of the C# port. The follo
 - `TKFaxEngineBuildInfo` currently disables the V.32bis and V.34 feature flags.
 - No test project is included in this repository. The assembly exposes internals to a separate `TKFaxEngineTest` project.
 
-Historical notes under `Wichtig` document earlier porting stages and may no longer match the current project file exactly. For build configuration, `TKFaxEngine.csproj` is authoritative.
+For build configuration, `TKFaxEngine.csproj` is authoritative. The generator utilities document how static data was produced, but they do not define the runtime feature status.
 
 ## Build output and deployment
 
