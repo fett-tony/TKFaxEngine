@@ -1,6 +1,17 @@
-# TKFaxEngine source generators
+# TKFaxEngine development tools
 
-This directory contains C utilities used to generate static data for the TKFaxEngine/spanDSP port. They are preserved for traceability and future development, especially for unfinished modem areas.
+This directory contains development and verification tools that are kept outside the normal TKFaxEngine library build.
+
+| Path | Contents |
+|---|---|
+| `Generators` | C utilities used to generate static data for the TKFaxEngine/spanDSP port |
+| `Engine_TEST` | Separate TKFaxEngineTest console application and compressed test data |
+
+The test application has mandatory preparation and test-data provenance notes in [`Engine_TEST/README.md`](Engine_TEST/README.md).
+
+## Source generators
+
+The C utilities are preserved for traceability and future development, especially for unfinished modem areas.
 
 ## Build relationship
 

@@ -108,6 +108,7 @@ Network framing is deliberately outside the engine. The library does not provide
 | `SRC/Modem/V150` | V.150.1 and SSE payload/state handling |
 | `SRC/TKFaxEngine.xml` | Generated XML API documentation for the public and internal C# API |
 | `tools/Generators` | Original C utilities used to generate lookup tables, constellations, filters, and dictionaries |
+| `tools/Engine_TEST` | Separate TKFaxEngineTest console application and its compressed test-data package |
 
 Source presence should not be read as a guarantee that every listed standard is complete or validated. The status markers in the source and the current test results take precedence.
 
@@ -123,6 +124,18 @@ The C programs under `tools/Generators` are retained so that generated tables an
 
 See [`tools/README.md`](tools/README.md) for the generator inventory, dependencies, and corresponding C# source areas.
 
+## Test application
+
+The separate `TKFaxEngineTest` console application is stored under `tools/Engine_TEST`. It is not part of the main `TKFaxEngine.slnx` build.
+
+> [!IMPORTANT]
+> Before building the test application, extract `tools/Engine_TEST/TKFaxEngineTest/Test-Files/Test-Files.zip` directly into the surrounding `Test-Files` directory. The build copies the extracted directory tree to its output, and the application refuses to start when required runtime files are missing.
+
+> [!IMPORTANT]
+> The WAV files stored under the archive path `bellcore/` are **not original Bellcore files**. They are independently created, Bellcore-like test signals. They are not copies, extracts, conversions, derivatives, tape transfers, or transcriptions of Bellcore material and do not require a Bellcore or Telcordia license. Only the existing directory and filenames were retained so that the test application can continue to use its established paths without unnecessary code changes or additional compatibility mapping. These names do not imply origin, authorization, or affiliation.
+
+See [`tools/Engine_TEST/README.md`](tools/Engine_TEST/README.md) for complete preparation, build, path, and test-data information.
+
 ## Development status
 
 The current codebase is a compilable development state of the C# port. The following limitations are explicit in the repository:
@@ -131,7 +144,7 @@ The current codebase is a compilable development state of the C# port. The follo
 - `SRC/Modem/V34`: work in progress, not yet functional.
 - `SRC/Modem/V42/V42.cs`: work in progress and unfinished.
 - `TKFaxEngineBuildInfo` currently disables the V.32bis and V.34 feature flags.
-- No test project is included in this repository. The assembly exposes internals to a separate `TKFaxEngineTest` project.
+- The separate test application is included under `tools/Engine_TEST`; it is not built by the main solution. The assembly exposes internals to this `TKFaxEngineTest` project.
 
 For build configuration, `TKFaxEngine.csproj` is authoritative. The generator utilities document how static data was produced, but they do not define the runtime feature status.
 
