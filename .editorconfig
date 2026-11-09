@@ -1,0 +1,10 @@
+﻿root = true
+
+# The physical SRC directory is the logical namespace root TKFaxEngine.
+# Folder segments below SRC continue to map one-to-one to namespace segments.
+[SRC/**/*.cs]
+dotnet_style_namespace_match_folder = false
+
+# Public spanDSP compatibility entry points intentionally preserve C names
+# such as t30_*, t38_* and t85_*.
+dotnet_diagnostic.IDE1006.severity = none

@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
+    <RootNamespace>TKFaxEngine</RootNamespace>
+    <AssemblyName>TKFaxEngine</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <!-- TKFaxEngine remains one managed class-library DLL. -->
+    <UseAppHost>false</UseAppHost>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>false</PublishSingleFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+    <!-- PDB, JSON and EXE side files are disabled. XML API documentation remains enabled. -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <GenerateRuntimeConfigDevFile>false</GenerateRuntimeConfigDevFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>$(MSBuildProjectDirectory)\SRC\TKFaxEngine.xml</DocumentationFile>
+    <CopyDebugSymbolFilesFromPackages>false</CopyDebugSymbolFilesFromPackages>
+    <CopyDocumentationFilesFromPackages>false</CopyDocumentationFilesFromPackages>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+	<AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <LibJpegNativeDll>H:\Documents\source\repos\02_VoIP_Entwicklung\libjpeg\artifacts\windows-x64\Release\bin\libjpeg.dll</LibJpegNativeDll>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Wichtig\**" />
+    <!--EmbeddedResource Remove="Wichtig\**" />
+    <None Remove="Wichtig\**" /-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BitMiracle.LibTiff.NET" Version="2.4.660" />
+    <PackageReference Include="libsndfile.NET8" Version="1.0.1">
+      <GeneratePathProperty>True</GeneratePathProperty>
+    </PackageReference>
+  </ItemGroup>
+
+  <!-- External libraries remain separate DLL files beside TKFaxEngine.dll. -->
+  <ItemGroup>
+    <Content Include="$(LibJpegNativeDll)" Link="libjpeg.dll">
+      <TargetPath>libjpeg.dll</TargetPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="ValidateNativeLibJpeg" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(LibJpegNativeDll)')" Text="Native libjpeg DLL nicht gefunden: $(LibJpegNativeDll)" />
+  </Target>
+
+  <Target Name="VerifyNativeLibJpegOutput" AfterTargets="Build">
+    <Error Condition="!Exists('$(TargetDir)libjpeg.dll')" Text="Native libjpeg DLL wurde nicht in das Ausgabeverzeichnis kopiert: $(TargetDir)libjpeg.dll" />
+  </Target>
+
+  <!-- Remove only forbidden side files. XML documentation is explicitly preserved. -->
+  <Target Name="RemoveForbiddenBuildArtifacts" AfterTargets="VerifyNativeLibJpegOutput">
+    <ItemGroup>
+      <ForbiddenBuildArtifact Include="$(TargetDir)**\*.pdb;$(TargetDir)**\*.json;$(TargetDir)**\*.exe" />
+    </ItemGroup>
+    <Delete Files="@(ForbiddenBuildArtifact)" />
+  </Target>
+
+  <Target Name="RemoveForbiddenPublishArtifacts" AfterTargets="Publish">
+    <ItemGroup>
+      <ForbiddenPublishArtifact Include="$(PublishDir)**\*.pdb;$(PublishDir)**\*.json;$(PublishDir)**\*.exe" />
+    </ItemGroup>
+    <Delete Files="@(ForbiddenPublishArtifact)" />
+  </Target>
+</Project>
