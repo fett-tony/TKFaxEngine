@@ -1,0 +1,14 @@
+Der zentrale Medienfehler ist gefunden: Die SIP-/reINVITE-Seite ist grundsätzlich vorhanden, aber der Client
+ kodiert und dekodiert UDPTL nur in einer vereinfachten Ein-Byte-Längenform. Sobald ein IFP-Paket 128 Byte oder
+ mehr hat, ist das Datagramm nicht mehr T.38-konform; eingehende größere Pakete werden ebenfalls falsch
+ zerlegt. Dadurch kann T.38 ausgehandelt sein, ohne dass die Faxdaten funktionieren.
+ 
+ 
+ 
+ 10352
+ 
+ 
+ Get-CimInstance Win32_Process -Filter "ProcessId = 10352" | Select-Object ProcessId, Name, ExecutablePath, CommandLine
+ 
+netsh int ipv4 show dynamicport udp
+netsh int ipv4 show excludedportrange protocol=udp

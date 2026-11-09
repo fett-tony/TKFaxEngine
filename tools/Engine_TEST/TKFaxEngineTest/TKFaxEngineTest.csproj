@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <StartupObject>TKFaxEngineTest.TKFaxEngineTest</StartupObject>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <NoWarn>$(NoWarn);CS8981</NoWarn>
+    <!--UseWindowsForms>true</UseWindowsForms-->
+    <LibJpegNativeDll>H:\Documents\source\repos\02_VoIP_Entwicklung\libjpeg\artifacts\windows-x64\Release\bin\libjpeg.dll</LibJpegNativeDll>
+    <TiffCmpExe>H:\Documents\source\repos\02_VoIP_Entwicklung\TiffCmp\bin\Release\net10.0\win-x64\publish\TiffCmp.exe</TiffCmpExe>
+	<Wichtig>H:\Documents\source\repos\02_VoIP_Entwicklung\TKFaxEngineTest\Wichtig</Wichtig>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Wichtig\**" />
+    <!--EmbeddedResource Remove="Wichtig\**" />
+    <None Remove="Wichtig\**" />
+	<Content Include="$(Wichtig)" Link="\Wichtig">
+      <TargetPath>\Wichtig</TargetPath>
+    </Content-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BitMiracle.LibTiff.NET" Version="2.4.660" />
+    <PackageReference Include="libsndfile.NET8" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="$(LibJpegNativeDll)" Link="libjpeg.dll">
+      <TargetPath>libjpeg.dll</TargetPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(TiffCmpExe)" Link="tiffcmp.exe">
+      <TargetPath>tiffcmp.exe</TargetPath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="ValidateNativeLibJpeg" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(LibJpegNativeDll)')" Text="Native libjpeg DLL nicht gefunden: $(LibJpegNativeDll)" />
+  </Target>
+
+  <Target Name="VerifyNativeLibJpegOutput" AfterTargets="Build">
+    <Error Condition="!Exists('$(OutDir)libjpeg.dll')" Text="Native libjpeg DLL wurde nicht in das Ausgabeverzeichnis kopiert: $(OutDir)libjpeg.dll" />
+  </Target>
+
+  <ItemGroup>
+    <Content Include="Test-Files\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Test-Files\%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="TKFaxEngine">
+      <HintPath>..\TKFaxEngine\bin\x64\Release\net10.0-windows10.0.17763.0\win-x64\TKFaxEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
